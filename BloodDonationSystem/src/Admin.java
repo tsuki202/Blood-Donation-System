@@ -8,21 +8,31 @@ public class Admin extends User {
 
     @Override
     public void showMenu() {
-        System.out.println("📌 Ви зайшли як АДМІН.");
-        System.out.println("1 - Переглянути список користувачів");
-        System.out.println("2 - Видалити користувача");
-        System.out.println("3 - Вийти");
-
         Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Очистка буфера
+        int choice;
 
-        switch (choice) {
-            case 1 -> registration.listUsers();
-            case 2 -> deleteUser();
-            case 3 -> System.out.println("📌 Вихід з режиму адміністратора.");
-            default -> System.out.println("❌ Невірний вибір!");
-        }
+        do {
+            System.out.println("📌 Ви зайшли як АДМІН.");
+            System.out.println("1 - Переглянути список користувачів");
+            System.out.println("2 - Видалити користувача");
+            System.out.println("3 - Вийти");
+            System.out.print("Оберіть дію: ");
+
+            while (!scanner.hasNextInt()) { // Перевірка на коректний ввід
+                System.out.println("❌ Невірний вибір! Спробуйте ще раз.");
+                scanner.next();
+            }
+
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Очистка буфера
+
+            switch (choice) {
+                case 1 -> registration.listUsers();
+                case 2 -> deleteUser();
+                case 3 -> System.out.println("📌 Вихід з режиму адміністратора.");
+                default -> System.out.println("❌ Невірний вибір! Спробуйте ще раз.");
+            }
+        } while (choice != 3);
     }
 
     private void deleteUser() {

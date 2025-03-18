@@ -10,6 +10,9 @@ public class Registration {
         return username;
     }
 
+    public void registerUser(String username, String password, String role) {
+    }
+
     // Клас User для збереження паролю та ролі
     public static class User {
         private String password;

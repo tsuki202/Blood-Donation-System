@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class User {
+class User {
     protected String username;
     protected String role;
     protected Registration registration;
@@ -11,8 +11,9 @@ public class User {
         this.registration = registration;
     }
 
+
     public void showMenu() {
-        System.out.println("📌 Ви зайшли як КОРИСТУВАЧ.");
+        System.out.println("📌 Ви зайшли як " + role.toUpperCase());
         System.out.println("1 - Вийти");
 
         Scanner scanner = new Scanner(System.in);

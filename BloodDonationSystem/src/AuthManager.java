@@ -1,6 +1,7 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
-public class AuthManager {
+class AuthManager {
     private Registration registration;
     private Scanner scanner;
 
@@ -42,7 +43,7 @@ public class AuthManager {
             scanner.next();
         }
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Очищення буфера після nextInt()
+        scanner.nextLine(); // Очищення буфера
         return choice;
     }
 
@@ -55,11 +56,11 @@ public class AuthManager {
         if (registration.userExists(username) && registration.getPassword(username).equals(password)) {
             String role = registration.getRole(username);
             if ("ADMIN".equals(role)) {
-                Admin admin = new Admin(username, registration);
-                admin.showMenu();
+                new Admin(username, registration).showMenu();
+            } else if ("ДОНОР".equals(role)) {
+                new Donor(username, registration).showMenu();
             } else {
-                User user = new User(username, "USER", registration);
-                user.showMenu();
+                new Recipient(username, registration).showMenu();
             }
         } else {
             System.out.println("❌ Невірний логін або пароль.");
@@ -76,12 +77,12 @@ public class AuthManager {
             System.out.print("🔑 Введіть пароль: ");
             String password = scanner.nextLine();
 
-            System.out.print("🔑 Введіть роль (ADMIN/User): ");
+            System.out.print("🔑 Введіть роль (ADMIN/ДОНОР/РЕЦИПІЄНТ): ");
             String role = scanner.nextLine().trim().toUpperCase();
 
-            if (!role.equals("ADMIN") && !role.equals("USER")) {
-                System.out.println("❌ Невірна роль. За замовчуванням буде встановлена роль USER.");
-                role = "USER";
+            if (!role.equals("ADMIN") && !role.equals("ДОНОР") && !role.equals("РЕЦИПІЄНТ")) {
+                System.out.println("❌ Невірна роль. За замовчуванням буде встановлена роль РЕЦИПІЄНТ.");
+                role = "РЕЦИПІЄНТ";
             }
 
             registration.register(username, password, role);
