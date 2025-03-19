@@ -1,3 +1,5 @@
+package org.example;
+
 public class LogIn {
     private Registration registration;
 
